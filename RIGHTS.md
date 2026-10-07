@@ -1,9 +1,13 @@
-# Copyright and permissions
+# Rights Notice
+
+Quick Reference is an experimental public alpha.
+
+No open-source license is granted at this stage.
 
 Copyright © 2026 grapefruitmio-lab. All rights reserved.
 
-This repository is made publicly visible for inspection and evaluation of an experimental alpha release. No open-source license is granted at this stage.
+You may inspect the public source and evaluate the software. No permission is granted here to copy, modify, redistribute, sublicense, or incorporate the source into another product except to the extent independently permitted by applicable law or GitHub's platform terms.
 
-Unless a separate written license is explicitly provided, permission is not granted to copy, modify, redistribute, sublicense, or commercially reuse the source code beyond rights that may apply independently under applicable law or the hosting platform's terms.
+Licensing may be reconsidered as the project matures.
 
-Licensing may be reconsidered in future releases.
+Code contributions are not being accepted at this stage.
