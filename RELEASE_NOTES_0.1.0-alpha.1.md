@@ -17,6 +17,10 @@ First experimental public alpha of Quick Reference, an Android-first reference w
 - Reference Graph enrichment and mobile workspace/navigation semantics remain experimental.
 - UI, iconography, accessibility, and broad device compatibility are not final.
 
+## APK distribution
+
+The first CodeAssist-exported APK inspected during release preparation is debug-signed. It is an acceptance artifact and is not the preferred public distribution APK. A stable release-signing identity should be established before publishing an APK intended for future in-place updates.
+
 ## Identity and provenance
 
 Public version: `0.1.0-alpha.1`
