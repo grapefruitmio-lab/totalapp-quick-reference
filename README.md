@@ -1,60 +1,69 @@
 # Quick Reference
 
-Quick Reference is an experimental Android-first reference workspace for moving quickly from selected text to multiple reference sources, documents, language variants, and related references without turning every lookup into a browser-tab workflow.
+Quick Reference is an experimental Android-first reference workspace for moving from selected text to multi-provider reference lookup without losing the working context around the query.
 
-**Public release target:** `0.1.0-alpha.1`  
-**Internal tested lineage:** `v0.1q-workspace-transaction` / versionCode 18
+Public release target: **0.1.0-alpha.1**
 
-## Status
+## What it explores
 
-Experimental public alpha. This is an early research/development build, not a stable release.
+- Android `PROCESS_TEXT` / text-share ingress
+- Multi-provider lookup: Wikipedia, Wiktionary, Wikidata, Wikisource, OpenAlex
+- Provider/language switching while retaining the working query
+- Search-result and document navigation state
+- Persistent Navigation History
+- Explicit Working Stack
+- Article representations such as read / history / discussion / languages where supported
+- Experimental Reference Graph enrichment through Wikidata identity and sitelinks
+- Content-bearing Reference Session events kept separate from operational diagnostics
 
-The current build has been dogfooded on a physical Android 14 device. The deterministic in-app smoke scenario currently reports 14/14 assertions passing. Real-device testing has also exercised persisted navigation/workspace state, the explicit Working Stack, Wikimedia representation traversal, language traversal, and Reference Graph enrichment.
+The long-term direction is a mobile-first **Reference Workspace** in which query state, visited references, working references, discovered-but-unvisited references, evidence, provenance, and later AI-assisted reference bundles can be represented explicitly rather than being scattered across browser tabs and app history.
 
-## What it does
+## Current status
 
-- Accepts text through Android `PROCESS_TEXT` and `ACTION_SEND`.
-- Searches Wikipedia, Wiktionary, Wikidata, Wikisource, and OpenAlex.
-- Keeps a persistent navigation/workspace history so lookup is not reduced to one disposable page.
-- Provides a small explicit Working Stack for references the user deliberately pins.
-- Traverses Wikipedia article, history, discussion, and language representations.
-- Enriches Wikipedia references through Wikidata sitelinks to expose additional language/reference possibilities.
-- Records privacy-bounded operational diagnostics separately from content-bearing Reference Session events.
-- Includes a deterministic smoke scenario for state/race/backoff invariants.
+This is an **experimental public alpha**, not a finished consumer application.
+
+The `0.1.0-alpha.1` source is derived from the tested internal lineage `v0.1q-workspace-transaction` (versionCode 18). The final candidate source was built and installed on a physical Android 14 device, and the deterministic in-app smoke suite reported **14/14** passing assertions during the final candidate check.
+
+See `PUBLIC_RELEASE_PROVENANCE.md` and `RELEASE_NOTES_0.1.0-alpha.1.md` for the exact release identity, tested scope, and known limitations.
 
 ## Known issues
 
-- Rarely, the search input field can revert to a previous/default state during some navigation or lifecycle sequences. This has been observed on a physical device and remains under investigation.
-- The Working Stack is intentionally limited to 8 items; a 9th pin is rejected rather than silently deleting an older pin.
-- Some Wikipedia discussion pages legitimately do not exist (HTTP 404).
-- Wikimedia/OpenAlex requests can be rate-limited; the app applies basic cooldown/backoff but network-dependent operations can still fail.
-- Language/reference discovery is not yet progressively rendered while enrichment is running.
-- The Reference Graph is still an experimental enrichment layer rather than a persistent first-class graph database.
-- UI, iconography, accessibility, documentation, and navigation semantics are still evolving.
-- Testing is currently limited; broad device/Android-version compatibility is not claimed.
+- A rare search-input rollback to an earlier/default state has previously been observed and remains under investigation. It was not reproduced in the final candidate check.
+- Some discussion/source targets legitimately return HTTP 404.
+- Network-backed providers can rate-limit requests.
+- Reference Graph enrichment is experimental.
+- Back/navigation semantics, UI, iconography, accessibility, and broad device compatibility are not final.
 
-Please report reproducible failures with the app version, Android version/device, approximate steps, and sanitized diagnostics when possible. Do not post private query/session content publicly unless you intend to share it.
+## Diagnostics and privacy
 
-## Privacy and diagnostics
+Operational diagnostics are designed not to record query plaintext. The app separately maintains content-bearing Reference Session data for research/workflow continuity. Treat exported session data and diagnostics as user-controlled files and review them before sharing.
 
-Operational diagnostics are designed not to store query plaintext. Content-bearing Reference Session data is a separate surface and should be treated as potentially private. Before attaching logs to a public issue, review them and remove anything you do not want to publish.
+The app communicates with the selected external reference providers over the network. Provider-side request handling is governed by those services.
 
-The app uses network services from its configured reference providers. Their own terms and privacy policies apply to requests sent to those services.
+## APK distribution status
 
-## Source and licensing
+The first CodeAssist-exported APK inspected for this release was debug-signed and is retained only as an acceptance artifact. It is not the preferred public distribution artifact. A stable release-signing identity should be established before publishing an APK intended to receive future in-place updates.
 
-The source is publicly visible for inspection as part of this experimental alpha. **No open-source license is granted at this stage. All rights reserved.**
+## Build / source identity
 
-Unless a separate license is explicitly provided, permission is not granted to copy, modify, redistribute, sublicense, or commercially reuse the source code beyond rights that may apply independently under law or the hosting platform's terms.
+Android applicationId: `com.example.quickreference`
 
-Licensing may be reconsidered as the project matures.
+Public versionName: `0.1.0-alpha.1`
 
-Code contributions are not being accepted yet. Bug reports, usage observations, and design feedback are welcome after the public feedback surfaces are opened.
+versionCode: `18`
+
+The exact tested `MainActivity.java` identity is recorded in `PUBLIC_RELEASE_PROVENANCE.md`.
+
+## Feedback
+
+Issues and workflow reports are welcome. When reporting a bug, include the app version, Android version/device, approximate reproduction steps, and sanitized diagnostics where useful. Do not post secrets, personal data, private queries/session content, or unsanitized diagnostics to a public issue.
+
+Code contributions are not being accepted at this stage while architecture and licensing are still being evaluated.
+
+## License / rights
+
+This repository is **public source**, but no open-source license has been granted at this stage.
 
 Copyright © 2026 grapefruitmio-lab. All rights reserved.
 
-## Development note
-
-Quick Reference started as a deliberately small lookup surface and has evolved into an experiment in mobile-first reference work: query state, reference identity, navigation history, explicit working sets, provenance, and an available/visited reference graph are treated as distinct objects rather than being collapsed into browser history.
-
-The broader research direction is a provider-neutral Reference Workspace in which human and AI work can share inspectable reference/evidence/provenance state without silently replacing factual provenance.
+See `RIGHTS.md`.
